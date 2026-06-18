@@ -20,7 +20,7 @@
 
 <br>
 
-[简介 / Intro](#简介--intro) · [AI Skill 是什么 / What is AI Skill](#ai-skill-是什么--what-is-ai-skill) · [安装 / Install](#安装--install) · [功能特性 / Features](#功能特性--features) · [IEEE 33 节点拓扑图 / IEEE 33-Bus Topology](#ieee-33-节点拓扑图--ieee-33-bus-topology) · [完整示意图 / Full Diagrams](#🖼️-完整示意图--full-diagrams) · [绘图基元 / Drawing Primitives](#绘图基元--drawing-primitives) · [AI Skill 使用方法 / How to Use](#ai-skill-使用方法--how-to-use) · [命令行工具 / CLI](#命令行工具--cli) · [参考文献 / References](#参考文献--references)
+[简介 / Intro](#简介--intro) · [AI Skill 是什么 / What is AI Skill](#ai-skill-是什么--what-is-ai-skill) · [安装 / Install](#安装--install) · [功能特性 / Features](#功能特性--features) · [IEEE 33 节点拓扑图 / IEEE 33-Bus Topology](#ieee-33-节点拓扑图--ieee-33-bus-topology) · [完整示意图 / Full Diagrams](#🖼️-完整示意图--full-diagrams) · [绘图基元 / Drawing Primitives](#绘图基元--drawing-primitives) · [AI Skill 使用方法 / How to Use](#ai-skill-使用方法--how-to-use) · [命令行工具 / CLI](#命令行工具--cli) · [鸣谢 / Acknowledgments](#acknowledgments--鸣谢) · [参考文献 / References](#参考文献--references)
 
 </div>
 
@@ -502,6 +502,17 @@ python -m IeeeTopologyDiagrams.reproduce_fig2
 | 🏫 Research / 研究方向 | Power System / Distribution Network Reconfiguration / IEEE 33-Bus |
 
 <img src="assets/wechat-banner.png" alt="湛联说 WeChat Official Account" width="480">
+
+## Acknowledgments / 鸣谢
+
+This project is developed and maintained with the support of the following platforms / 本项目在以下平台的支持下开发和维护：
+
+| Platform / 平台 | Role / 支持方式 |
+|------|------|
+| <img src="https://img.shields.io/badge/CloudStudio-在线开发环境-blue?logo=cloudstudio" height="20"> **Cloud Studio** | Cloud-based development environment / 云端开发环境 |
+| <img src="https://img.shields.io/badge/Trae-IDE-blueviolet?logo=trae" height="20"> **Trae IDE** | AI-powered IDE with native Skill extension support / AI 原生 IDE，提供 Skill 扩展支持 |
+
+---
 
 ## License / 许可证
 
