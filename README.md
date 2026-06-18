@@ -1,46 +1,63 @@
+<div align="center">
+
 # IeeeTopologyDiagrams
 
 > IEEE 33-Bus Distribution System Single-Line Diagram Drawing Primitives
 
-<div align="center">
-
 [![PyPI version](https://badge.fury.io/py/IeeeTopologyDiagrams.svg)](https://badge.fury.io/py/IeeeTopologyDiagrams)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://pypi.org/project/IeeeTopologyDiagrams/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Power System](https://img.shields.io/badge/Domain-Power%20System-green)](https://en.wikipedia.org/wiki/Distribution_network_reconfiguration)
+[![AI Reproducible](https://img.shields.io/badge/AI-Reproducible-blueviolet)](https://github.com/trae-ai)
+
+<br>
+
+**可复现的电力系统配电网络拓扑可视化，基于 Baran & Wu (1989) 经典 IEEE 33-Bus 算例。**
+
+<sub>提供完整的绘图基元和 AI 可复现框架，每个示例脚本头部含完整参数表和中英文绘制步骤，可独立运行或直接作为 AI 提示词复现原图。</sub>
+
+<br>
+
+[简介](#简介) · [安装](#安装) · [功能特性](#功能特性) · [快速开始](#快速开始) · [绘图基元](#绘图基元) · [参考文献](#参考文献)
 
 </div>
 
-## 📖 Overview
+---
 
-电力系统**配电网络单线图**（One-Line Diagram / Single-Line Diagram）绘图库，基于 IEEE 33-Bus 标准测试系统。
+## 简介
 
 实现 Baran & Wu (1989) 提出的配电网络重构经典算例的拓扑可视化，涵盖**变电站**（Substation）、**母线**（Bus）、**断路器**（Circuit Breaker, CB）、**配电馈线**（Distribution Feeder）、**支路功率流**（Branch Power Flow）及**负荷注入**（Load Injection）等电力系统标准图元。
 
-每个绘图脚本头部包含**完整参数字段表 + 中英文绘制步骤**，可独立运行或作为 AI 提示词独立复现同样的拓扑图。
-
-## 📚 Citation
+每个绘图脚本头部包含**完整参数字典 + 中英文分步绘制说明**，任何人或 AI 都可以按照步骤精确复现原图。
 
 > M.E. Baran, F.F. Wu, "Network Reconfiguration in Distribution Systems for Loss Reduction and Load Balancing," IEEE Trans. Power Delivery, Vol. 4, No. 2, pp. 1401-1407, 1989.
 
-## 🚀 Installation
+---
+
+## 安装
 
 ```bash
 pip install IeeeTopologyDiagrams
 ```
 
-## 🎯 Features
+---
 
-| Category | Primitives | Status |
-|----------|------------|--------|
-| **Switchgear** | NCB/NOCB (horizontal/vertical) | ✅ |
-| **Substations** | Solid rectangle / double-line | ✅ |
-| **Bus Nodes** | Bar node / solid point / switched module | ✅ |
-| **Load & Transformer** | Load injection / distribution transformer | ✅ |
-| **Power Flow Labels** | P/Q arrows for loop analysis (Fig 4) | ✅ |
-| **Reproducible Examples** | Full figures from Baran.1989 | ✅ |
-| **Skill Extensions** | AI-assisted reproduction framework | ✅ |
+## 功能特性
 
-## 📦 Quick Start
+| 类别 | 功能 | 状态 |
+|------|------|:----:|
+| **开关设备** | 常闭/常开断路器（水平/垂直） | ✅ |
+| **变电站** | 实心矩形 / 空心双线两种样式 | ✅ |
+| **母线节点** | 竖母线 / 横母线 / 带开关模块 / 连接点 | ✅ |
+| **负荷变压器** | 负荷节点注入 / 配电变压器符号 | ✅ |
+| **环路功率标注** | Figure 4 完整 P/ΔP 箭头标注系统 | ✅ |
+| **原始图复现** | Baran.1989 四幅原图完整复现 | ✅ |
+| **AI Skill 框架** | Trae IDE 技能扩展，支持一键复现 | ✅ |
+| **命令行导出** | CLI 一键导出单个符号 / 完整图形 | ✅ |
+
+---
+
+## 快速开始
 
 ```python
 import matplotlib.pyplot as plt
@@ -67,103 +84,106 @@ plt.savefig('output.png', dpi=200, bbox_inches='tight')
 plt.show()
 ```
 
-## 🎨 Drawing Primitives
+---
 
-### 🔹 Switchgear
+## 绘图基元
 
-| Function | Orientation | State | Description |
-|----------|:-----------:|:-----:|-------------|
-| `draw_switch()` | horizontal | NCB | Normally-Closed Circuit Breaker |
-| `draw_switch_vertical()` | vertical | NCB | Normally-Closed Circuit Breaker |
-| `draw_switch_open()` | horizontal | NOCB | Normally-Open Circuit Breaker |
-| `draw_switch_open_vertical()` | vertical | NOCB | Normally-Open Circuit Breaker |
+### 🔹 开关设备 (Switchgear)
 
-### 🔹 Substations
+| 函数 | 方向 | 状态 | 说明 |
+|------|:----:|:----:|------|
+| `draw_switch()` | 水平 | 常闭 | Normally-Closed Circuit Breaker (NCB) |
+| `draw_switch_vertical()` | 垂直 | 常闭 | Normally-Closed Circuit Breaker (NCB) |
+| `draw_switch_open()` | 水平 | 常开 | Normally-Open Circuit Breaker (NOCB) / Tie Switch |
+| `draw_switch_open_vertical()` | 垂直 | 常开 | Normally-Open Circuit Breaker (NOCB) / Tie Switch |
 
-| Function | Style | Description |
-|----------|-------|-------------|
-| `draw_substation_vertical()` | solid rectangle | Distribution Substation SS1 |
-| `draw_substation_horizontal()` | double vertical lines | Distribution Substation SS2 |
+### 🔹 变电站 (Substations)
 
-### 🔹 Bus Nodes
+| 函数 | 样式 | 说明 |
+|------|------|------|
+| `draw_substation_vertical()` | 实心矩形 | 配电变电站 SS1 |
+| `draw_substation_horizontal()` | 空心双竖线 | 配电变电站 SS2 |
 
-| Function | Description |
-|----------|-------------|
-| `draw_bar_node()` | Vertical bus bar node |
-| `draw_bar_node_switched()` | Horizontal bus with vertical switch module |
-| `draw_solid_node()` | Solid circle connection point |
-| `draw_branch()` | Lateral branch / feeder stub |
+### 🔹 母线节点 (Bus Nodes)
 
-### 🔹 Loop Nodes (Figure 4)
+| 函数 | 说明 |
+|------|------|
+| `draw_bar_node()` | 竖直母线节点 |
+| `draw_bar_node_switched()` | 水平母线带竖直开关模块 |
+| `draw_solid_node()` | 实心圆点连接点 |
+| `draw_branch()` | 侧馈引出支路 |
 
-For the loop representation with open branch b:
+### 🔹 环路节点 (Loop Nodes - Figure 4)
 
-| Function | Description |
-|----------|-------------|
-| `draw_node_i_minus_1()` | Node i-1 with left corner & dashed extension |
-| `draw_node_k_minus_1()` | Node k-1 with Pk-1 power arrow |
-| `draw_node_k()` | Node k (end of L-side) with Pk vertical arrow |
-| `draw_node_n()` | Node n with ΔPn horizontal arrow |
-| `draw_common_node_o()` | Common node 0 at loop top |
-| `draw_common_node_o_left()` | Left vertical bus for loop |
-| `draw_common_node_o_right()` | Right vertical bus for loop |
+| 函数 | 说明 |
+|------|------|
+| `draw_node_i_minus_1()` | i-1 节点，左拐角 + 虚线延伸 |
+| `draw_node_k_minus_1()` | k-1 节点，Pk-1 功率箭头 |
+| `draw_node_k()` | k 节点（L侧末端），Pk 垂直箭头 |
+| `draw_node_n()` | n 节点，ΔPn 水平箭头 |
+| `draw_common_node_o()` | 环路顶部公共节点 0 |
 
-### 🔹 Load & Transformer
+### 🔹 负荷与变压器 (Load & Transformer)
 
-| Function | Description |
-|----------|-------------|
-| `draw_load_node()` | Load node with label, dashed box & downward arrow |
-| `draw_tf_node()` | Distribution transformer node with winding symbol |
+| 函数 | 说明 |
+|------|------|
+| `draw_load_node()` | 负荷节点，标号 + 虚线框 + 向下箭头 |
+| `draw_tf_node()` | 配电变压器，含绕组符号 |
 
-## 📐 Style Constants
+### 📐 样式常量
 
-| Constant | Value | Meaning |
-|----------|-------|---------|
-| `BUS_LW` | 2.2 | Bus/Feeder line width |
-| `NODE_LW` | 1.1 | Node/Switch border line width |
-| `TEXT_FS` | 20 | Node label font size |
-| `LABEL_FS` | 18 | Equipment label font size |
-| `TITLE_FS` | 22 | Figure title font size |
-| `SW_SIZE` | 0.18 | Circuit breaker symbol size |
+| 常量 | 值 | 含义 |
+|------|-----|------|
+| `BUS_LW` | 2.2 | 母线/馈线线宽 |
+| `NODE_LW` | 1.1 | 节点/开关边框线宽 |
+| `TEXT_FS` | 20 | 节点编号字号 |
+| `LABEL_FS` | 18 | 设备标签字号 |
+| `SW_SIZE` | 0.18 | 断路器符号尺寸 |
 
-## 📜 Examples
+---
 
-| Script | Figure | Description |
-|--------|--------|-------------|
-| `reproduce_fig1.py` | Fig 1 | Primary circuit schematic |
-| `reproduce_fig2.py` | Fig 2 | IEEE 33-Bus full system one-line diagram |
-| `reproduce_fig3.py` | Fig 3 | Radial network with P/Q power flow labeling |
-| `reproduce_fig4.py` | Fig 4 | Loop with open branch b (delta P notation) |
+## 示例脚本
 
-Each script includes complete parameter tables and step-by-step instructions at the top, can be used directly as AI prompts for reproduction.
+| 脚本 | 输出 | 说明 |
+|------|------|------|
+| `reproduce_fig1.py` | Figure 1 | 一次回路原理图 |
+| `reproduce_fig2.py` | Figure 2 | IEEE 33-Bus 完整系统单线图 |
+| `reproduce_fig3.py` | Figure 3 | 辐射网络支路 P/Q 功率流标注 |
+| `reproduce_fig4.py` | Figure 4 | 带开分支 b 的环路示意图 |
 
-## 🔧 Command Line Tools
+每个脚本头部包含完整参数表和分步绘制说明，可直接作为 AI 提示词复现。
 
-The package installs several CLI commands for exporting symbols:
+---
+
+## 🔧 命令行工具
+
+包安装后自带 CLI 命令可直接导出符号：
 
 ```bash
-# Export full figures
-IeeeTopologyDiagrams-fig1   # export Figure 1
-IeeeTopologyDiagrams-fig2   # export Figure 2
-IeeeTopologyDiagrams-fig3   # export Figure 3
-IeeeTopologyDiagrams-fig4   # export Figure 4
-IeeeTopologyDiagrams-cb1cb2 # export CB1/CB2 example
+# 导出完整图形
+IeeeTopologyDiagrams-fig1   # 导出 Figure 1
+IeeeTopologyDiagrams-fig2   # 导出 Figure 2
+IeeeTopologyDiagrams-fig3   # 导出 Figure 3
+IeeeTopologyDiagrams-fig4   # 导出 Figure 4
+IeeeTopologyDiagrams-cb1cb2 # 导出 CB1/CB2 示例
 
-# Export individual symbols
-IeeeTopologyDiagrams-switch          # horizontal NCB
-IeeeTopologyDiagrams-switch-vertical # vertical NCB
-IeeeTopologyDiagrams-switch-open-h   # horizontal NOCB
-IeeeTopologyDiagrams-switch-open-v   # vertical NOCB
-IeeeTopologyDiagrams-ss1             # substation SS1
-IeeeTopologyDiagrams-ss2             # substation SS2
-IeeeTopologyDiagrams-solid-node      # solid connection point
-IeeeTopologyDiagrams-load-node       # load node
+# 导出单个符号
+IeeeTopologyDiagrams-switch          # 水平常闭断路器
+IeeeTopologyDiagrams-switch-vertical # 竖正常闭断路器
+IeeeTopologyDiagrams-switch-open-h   # 水平常开断路器
+IeeeTopologyDiagrams-switch-open-v   # 竖正常开断路器
+IeeeTopologyDiagrams-ss1             # 变电站 SS1
+IeeeTopologyDiagrams-ss2             # 变电站 SS2
+IeeeTopologyDiagrams-solid-node      # 实心连接点
+IeeeTopologyDiagrams-load-node       # 负荷节点
 ```
 
-## 🧩 Glossary
+---
 
-| Chinese | English | Abbreviation |
-|---------|---------|--------------|
+## 🧩 术语对照表
+
+| 中文 | English | 缩写 |
+|------|---------|------|
 | 单线图 | One-Line Diagram / Single-Line Diagram | SLD |
 | 变电站 | Substation | SS |
 | 断路器 | Circuit Breaker | CB |
@@ -178,19 +198,39 @@ IeeeTopologyDiagrams-load-node       # load node
 | 负荷注入 | Load Injection | P_L, Q_L |
 | 配电变压器 | Distribution Transformer | TF |
 
-## 🛠️ Skills
+---
 
-This package includes an AI skill framework for Trae IDE:
+## 🛠️ AI Skill 扩展
+
+本项目内置 Trae IDE 技能框架，支持一键复现原始论文图形：
+
 - [baran-wu-figures](./IeeeTopologyDiagrams/skills/baran-wu-figures/README_skill.md) - Reproduce original figures from Baran & Wu (1989)
 
-## 👨‍💻 Author
+---
+
+## 作者
 
 **黎湛联 (Zhanlian Li)**
 
-## 📄 License
+## 许可证
 
-MIT License - see [LICENSE](LICENSE) for details
+MIT License - 见 [LICENSE](LICENSE) 文件
 
-## 🔗 References
+---
+
+## 参考文献
 
 1. Baran, M. E., & Wu, F. F. (1989). Network reconfiguration in distribution systems for loss reduction and load balancing. *IEEE Transactions on Power Delivery*, 4(2), 1401-1407.
+
+---
+
+<div align="center">
+
+**IEEE 33-Bus 拓扑可复现绘图基元**<br>
+让学术论文插图复现变得简单。
+
+<br>
+
+MIT License © 黎湛联 (Zhanlian Li)
+
+</div>
