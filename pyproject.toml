@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "IeeeTopologyDiagrams"
+version = "4.0.6"
+description = "IEEE 33-Bus single-line diagram drawing primitives based on Baran.1989 (Main Version)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [{name = "黎湛联 (Zhanlian Li)"}]
+dependencies = [
+    "matplotlib>=3.5",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+IeeeTopologyDiagrams-fig2 = "IeeeTopologyDiagrams.cli:reproduce_fig1"
+IeeeTopologyDiagrams-switch = "IeeeTopologyDiagrams.cli:save_switch_symbol"
+IeeeTopologyDiagrams-switch-vertical = "IeeeTopologyDiagrams.cli:save_switch_vertical"
+IeeeTopologyDiagrams-switch-open-h = "IeeeTopologyDiagrams.cli:save_switch_open_h"
+IeeeTopologyDiagrams-switch-open-v = "IeeeTopologyDiagrams.cli:save_switch_open_v"
+IeeeTopologyDiagrams-bar-node-short = "IeeeTopologyDiagrams.cli:save_bar_node_short"
+IeeeTopologyDiagrams-bar-node-horizontal = "IeeeTopologyDiagrams.cli:save_bar_node_horizontal"
+IeeeTopologyDiagrams-node15 = "IeeeTopologyDiagrams.cli:save_node15"
+IeeeTopologyDiagrams-load-node = "IeeeTopologyDiagrams.cli:save_load_node"
+IeeeTopologyDiagrams-load-node-left = "IeeeTopologyDiagrams.cli:save_load_node_left"
+IeeeTopologyDiagrams-load-node-right = "IeeeTopologyDiagrams.cli:save_load_node_right"
+IeeeTopologyDiagrams-tf-node = "IeeeTopologyDiagrams.cli:save_tf_node"
+IeeeTopologyDiagrams-ss1 = "IeeeTopologyDiagrams.cli:save_ss1_symbol"
+IeeeTopologyDiagrams-ss2 = "IeeeTopologyDiagrams.cli:save_ss2_symbol"
+IeeeTopologyDiagrams-solid-node = "IeeeTopologyDiagrams.cli:save_solid_node"
+IeeeTopologyDiagrams-fig1 = "IeeeTopologyDiagrams.cli:reproduce_fig1"
+IeeeTopologyDiagrams-cb1cb2 = "IeeeTopologyDiagrams.cli:reproduce_fig_cb1_cb2"
+IeeeTopologyDiagrams-branch = "IeeeTopologyDiagrams.cli:save_branch"
+IeeeTopologyDiagrams-fig3 = "IeeeTopologyDiagrams.cli:reproduce_fig3"
+IeeeTopologyDiagrams-fig4 = "IeeeTopologyDiagrams.cli:reproduce_fig4"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["IeeeTopologyDiagrams*"]
+
+[tool.setuptools.package-data]
+IeeeTopologyDiagrams = ["skills/**/*.md", "skills/**/*.py"]
