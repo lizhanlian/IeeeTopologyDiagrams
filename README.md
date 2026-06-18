@@ -2,7 +2,7 @@
 
 # IeeeTopologyDiagrams
 
-> IEEE 33-Bus Distribution System Single-Line Diagram Drawing Primitives
+> IEEE 33 节点配电网络单线图绘制基元 · IEEE 33-Bus Distribution System Single-Line Diagram Drawing Primitives
 
 [![PyPI version](https://badge.fury.io/py/IeeeTopologyDiagrams.svg)](https://badge.fury.io/py/IeeeTopologyDiagrams)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://pypi.org/project/IeeeTopologyDiagrams/)
@@ -12,13 +12,13 @@
 
 <br>
 
-**可复现的电力系统配电网络拓扑可视化，基于 Baran & Wu (1989) 经典 IEEE 33-Bus 算例。**
+**IEEE 33 节点拓扑图可复现实例 — 基于 Baran & Wu (1989) 经典配电网络重构算例，提供完整的绘图函数和参数说明。**
 
-<sub>提供完整的绘图基元和 AI 可复现框架，每个示例脚本头部含完整参数表和中英文绘制步骤，可独立运行或直接作为 AI 提示词复现原图。</sub>
+<sub>IEEE 33 节点系统（33-bus distribution system）是配电网络重构、无功优化、分布式电源接入、故障定位等研究中最常用的基准算例。本项目提供 IEEE 33 节点单线图、IEEE 33 节点拓扑图、以及 Baran & Wu 论文原始四幅图的可复现绘制工具。</sub>
 
 <br>
 
-[简介](#简介) · [安装](#安装) · [功能特性](#功能特性) · [快速开始](#快速开始) · [绘图基元](#绘图基元) · [参考文献](#参考文献)
+[简介](#简介) · [安装](#安装) · [功能特性](#功能特性) · [IEEE 33 节点拓扑图](#ieee-33-节点拓扑图) · [绘图基元](#绘图基元) · [命令行工具](#命令行工具) · [参考文献](#参考文献)
 
 </div>
 
@@ -26,11 +26,15 @@
 
 ## 简介
 
-实现 Baran & Wu (1989) 提出的配电网络重构经典算例的拓扑可视化，涵盖**变电站**（Substation）、**母线**（Bus）、**断路器**（Circuit Breaker, CB）、**配电馈线**（Distribution Feeder）、**支路功率流**（Branch Power Flow）及**负荷注入**（Load Injection）等电力系统标准图元。
+**IEEE 33 节点配电系统**（IEEE 33-bus distribution system）是配电网络重构、无功优化、分布式电源规划、故障定位与隔离、微电网运行等研究领域中广泛使用的基准算例。
 
-每个绘图脚本头部包含**完整参数字典 + 中英文分步绘制说明**，任何人或 AI 都可以按照步骤精确复现原图。
+本项目实现 Baran & Wu (1989) 论文提出的 IEEE 33 节点拓扑图可复现绘制，涵盖**变电站**（Substation）、**母线**（Bus）、**断路器**（Circuit Breaker, CB）、**配电馈线**（Distribution Feeder）、**支路功率流**（Branch Power Flow）及**负荷注入**（Load Injection）等电力系统标准图元。
+
+每个绘图脚本头部包含**完整参数字典 + 中英文分步绘制说明**，任何人或 AI 都可以按照步骤精确复现 IEEE 33 节点拓扑图、IEEE 33 节点单线图，以及 Baran & Wu 原始论文的 Figure 1–Figure 4。
 
 > M.E. Baran, F.F. Wu, "Network Reconfiguration in Distribution Systems for Loss Reduction and Load Balancing," IEEE Trans. Power Delivery, Vol. 4, No. 2, pp. 1401-1407, 1989.
+
+**适用研究方向：** 配电网络重构、无功优化、分布式发电接入、配电网可靠性评估、微电网优化、配电网故障恢复、三相潮流分析。
 
 ---
 
@@ -57,7 +61,35 @@ pip install IeeeTopologyDiagrams
 
 ---
 
-## 快速开始
+## 📦 IEEE 33 节点拓扑图
+
+**IEEE 33 节点系统参数**（IEEE 33-bus distribution test system）：
+
+| 参数 | 数值 |
+|------|------|
+| 基准电压 | 12.66 kV |
+| 节点数 | 33（含变电站节点 0）|
+| 支路数 | 37（32 条工作支路 + 5 条联络线 tie-line）|
+| 常开开关（联络线）| 支路 33, 34, 35, 36, 37 |
+| 总负荷 | 3.715 MW + j2.300 MVar |
+| 有功网损（初始辐射状）| ≈ 202.67 kW |
+| 最低电压节点 | Bus 18, ≈ 0.9131 p.u. |
+
+**IEEE 33 节点拓扑结构：**
+
+* **馈线 1：** SS1 → Bus 1 → Bus 2 → ... → Bus 17
+* **馈线 2：** SS2 → Bus 18 → Bus 19 → ... → Bus 32
+* **联络线：** Bus 8–Bus 21、Bus 9–Bus 15、Bus 12–Bus 22、Bus 18–Bus 33、Bus 25–Bus 29
+* **运行方式：** 常开 5 个联络开关，呈辐射状运行；重构时通过开关切换寻找最小网损拓扑
+
+使用一行命令安装并生成 IEEE 33 节点拓扑图：
+
+```bash
+pip install IeeeTopologyDiagrams
+python -c "from IeeeTopologyDiagrams.reproduce_fig2 import draw_ieee33bus_diagram; draw_ieee33bus_diagram('ieee33.png')"
+```
+
+**在 Python 中调用并定制：**
 
 ```python
 import matplotlib.pyplot as plt
@@ -142,15 +174,15 @@ plt.show()
 
 ---
 
-## 🖼️ 完整示意图
+## 🖼️ 完整示意图（IEEE 33 节点系统）
 
-本项目可复现 Baran & Wu (1989) 论文的全部四幅关键图，以下为自动生成的效果。
+本项目可复现 Baran & Wu (1989) 论文的全部四幅关键图，包括 **IEEE 33 节点单线图**、**IEEE 33 节点拓扑图**、以及论文原始的 Figure 1–Figure 4。
 
 运行 `python generate_figures.py` 即可重新生成所有图像，输出到 `assets/` 目录。
 
 ---
 
-### Figure 1 — 配电系统一次回路示意图
+### Figure 1 — 配电系统一次回路示意图（IEEE 33 节点拓扑来源）
 
 > *Schematic diagram of a simplified primary circuit of a distribution system together with sectionalizing switches.*
 
@@ -161,25 +193,26 @@ plt.show()
 | 联络开关 | CB7（馈线-馈线联络）、CB8（变电站-变电站联络）、CB9（环型侧馈线），常开 |
 | 负荷点 | "·" 标记，表示配电变压器抽头位置 |
 
-![Figure 1](assets/fig1.png)
+![Figure 1 — 一次回路原理图](assets/fig1.png)
 
 ---
 
-### Figure 2 — IEEE 33-Bus 完整配电系统单线图
+### Figure 2 — IEEE 33 节点完整配电系统单线图
 
-> *Equivalent network derived from Figure 1 with solid branches in service, dotted branches representing lines with open switches. 32 load buses, 37 branches, 5 tie-lines.*
+> *IEEE 33-bus distribution system one-line diagram: equivalent network derived from Figure 1 with solid branches in service, dotted branches representing lines with open switches. 32 load buses, 37 branches, 5 tie-lines.*
 
 | 组件 | 内容 |
 |------|------|
 | 规模 | 2 个变电站 + 32 个负荷节点 + 37 条支路 |
 | 联络线 | 5 条常开 tie-line（支路 33–37）|
 | 开关 | CB1–CB5（常闭分段），cb21–cb22（常开联络）|
+| 应用 | 配电网络重构、无功优化、分布式电源接入研究的基准算例 |
 
-![Figure 2](assets/fig2.png)
+![Figure 2 — IEEE 33 节点单线图](assets/fig2.png)
 
 ---
 
-### Figure 3 — 辐射网络支路 P/Q 功率流标注
+### Figure 3 — IEEE 33 节点辐射网络 P/Q 功率流标注
 
 > *Power flow in a radial distribution network described by recursive DistFlow branch equations. Active power P, reactive power Q, node voltage V.*
 
@@ -189,11 +222,11 @@ plt.show()
 | 标注方式 | 沿馈线水平标注 P, Q；负荷节点 P_L, Q_L 向下注入 |
 | 馈线延伸 | 虚线部分表示下游省略的支路 |
 
-![Figure 3](assets/fig3.png)
+![Figure 3 — 辐射网络功率流](assets/fig3.png)
 
 ---
 
-### Figure 4 — 带开分支 b 的环路示意图
+### Figure 4 — IEEE 33 节点带开分支 b 的环路示意图
 
 > *A loop associated with open branch b. Branch exchange creates a new tree by closing an open branch b and by opening a closed branch m in the loop.*
 
@@ -205,7 +238,7 @@ plt.show()
 | 开分支 b | k 与 n 之间的虚线（联络线）|
 | 功率标注 | Pok（L-side 发送功率）、Pon（R-side 发送功率）、Pk、ΔPn |
 
-![Figure 4](assets/fig4.png)
+![Figure 4 — 环路示意图](assets/fig4.png)
 
 ---
 
@@ -234,15 +267,17 @@ IeeeTopologyDiagrams-load-node       # 负荷节点
 
 ---
 
-## 🧩 术语对照表
+## 🧩 术语对照表（IEEE 33 节点配电系统）
 
-| 中文 | English | 缩写 |
-|------|---------|------|
+| 中文 | English | 缩写 / 备注 |
+|------|---------|--------------|
+| IEEE 33 节点系统 | IEEE 33-bus distribution test system | 经典配电网络重构基准算例 |
+| IEEE 33 节点单线图 | One-line diagram of IEEE 33-bus system | IEEE 33 节点拓扑图 |
 | 单线图 | One-Line Diagram / Single-Line Diagram | SLD |
 | 变电站 | Substation | SS |
 | 断路器 | Circuit Breaker | CB |
 | 常闭断路器 | Normally-Closed CB | NCB |
-| 常开断路器 | Normally-Open CB / Tie Switch | NOCB |
+| 常开断路器 / 联络开关 | Normally-Open CB / Tie Switch | NOCB |
 | 母线 | Bus / Bus Bar | — |
 | 配电馈线 | Distribution Feeder | — |
 | 辐射状网络 | Radial Network | — |
@@ -251,6 +286,10 @@ IeeeTopologyDiagrams-load-node       # 负荷节点
 | 无功功率 | Reactive Power | Q |
 | 负荷注入 | Load Injection | P_L, Q_L |
 | 配电变压器 | Distribution Transformer | TF |
+| 联络线 / 开分支 | Tie-line / Open branch | 支路 33-37 |
+| 配电网络重构 | Distribution Network Reconfiguration | Baran & Wu, 1989 |
+| 网损 | Power Loss | kW |
+| 节点电压 | Bus Voltage | p.u. (per unit) |
 
 ---
 
