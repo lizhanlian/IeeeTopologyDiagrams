@@ -142,16 +142,70 @@ plt.show()
 
 ---
 
-## 示例脚本
+## 🖼️ 完整示意图
 
-| 脚本 | 输出 | 说明 |
-|------|------|------|
-| `reproduce_fig1.py` | Figure 1 | 一次回路原理图 |
-| `reproduce_fig2.py` | Figure 2 | IEEE 33-Bus 完整系统单线图 |
-| `reproduce_fig3.py` | Figure 3 | 辐射网络支路 P/Q 功率流标注 |
-| `reproduce_fig4.py` | Figure 4 | 带开分支 b 的环路示意图 |
+本项目可复现 Baran & Wu (1989) 论文的全部四幅关键图，以下为自动生成的效果。
 
-每个脚本头部包含完整参数表和分步绘制说明，可直接作为 AI 提示词复现。
+运行 `python generate_figures.py` 即可重新生成所有图像，输出到 `assets/` 目录。
+
+---
+
+### Figure 1 — 配电系统一次回路示意图
+
+> *Schematic diagram of a simplified primary circuit of a distribution system together with sectionalizing switches.*
+
+| 组件 | 内容 |
+|------|------|
+| 变电站 | SS1（实心矩形）、SS2（空心双线）|
+| 分段开关 | CB1–CB6（常闭，实心黑色）|
+| 联络开关 | CB7（馈线-馈线联络）、CB8（变电站-变电站联络）、CB9（环型侧馈线），常开 |
+| 负荷点 | "·" 标记，表示配电变压器抽头位置 |
+
+![Figure 1](assets/fig1.png)
+
+---
+
+### Figure 2 — IEEE 33-Bus 完整配电系统单线图
+
+> *Equivalent network derived from Figure 1 with solid branches in service, dotted branches representing lines with open switches. 32 load buses, 37 branches, 5 tie-lines.*
+
+| 组件 | 内容 |
+|------|------|
+| 规模 | 2 个变电站 + 32 个负荷节点 + 37 条支路 |
+| 联络线 | 5 条常开 tie-line（支路 33–37）|
+| 开关 | CB1–CB5（常闭分段），cb21–cb22（常开联络）|
+
+![Figure 2](assets/fig2.png)
+
+---
+
+### Figure 3 — 辐射网络支路 P/Q 功率流标注
+
+> *Power flow in a radial distribution network described by recursive DistFlow branch equations. Active power P, reactive power Q, node voltage V.*
+
+| 组件 | 内容 |
+|------|------|
+| 支路方程 | DistFlow — 由发送端 P, Q, V 递推接收端 |
+| 标注方式 | 沿馈线水平标注 P, Q；负荷节点 P_L, Q_L 向下注入 |
+| 馈线延伸 | 虚线部分表示下游省略的支路 |
+
+![Figure 3](assets/fig3.png)
+
+---
+
+### Figure 4 — 带开分支 b 的环路示意图
+
+> *A loop associated with open branch b. Branch exchange creates a new tree by closing an open branch b and by opening a closed branch m in the loop.*
+
+| 组件 | 内容 |
+|------|------|
+| 公共源节点 | o (source) |
+| L-side | o → 节点 i−1 → 节点 k−1 → 节点 k |
+| R-side | o → … → 节点 n−1 → 节点 n |
+| 开分支 b | k 与 n 之间的虚线（联络线）|
+| 功率标注 | Pok（L-side 发送功率）、Pon（R-side 发送功率）、Pk、ΔPn |
+
+![Figure 4](assets/fig4.png)
 
 ---
 
@@ -208,13 +262,22 @@ IeeeTopologyDiagrams-load-node       # 负荷节点
 
 ---
 
-## 作者
+## 关于作者
 
 **黎湛联 (Zhanlian Li)**
 
+| 平台 | 链接 |
+|------|------|
+| 🌐 GitHub | [github.com/lizhanlian](https://github.com/lizhanlian) |
+| 📦 PyPI | [IeeeTopologyDiagrams](https://pypi.org/project/IeeeTopologyDiagrams/) |
+| 💬 公众号 | 微信搜「湛联说」|
+| 🏫 研究方向 | 电力系统 / 配电网络重构 / IEEE 33-Bus |
+
+<img src="assets/wechat-banner.png" alt="湛联说公众号" width="480">
+
 ## 许可证
 
-MIT License - 见 [LICENSE](LICENSE) 文件
+MIT — 随便用，随便改，随便造。
 
 ---
 
